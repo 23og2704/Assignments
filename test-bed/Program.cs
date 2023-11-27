@@ -48,7 +48,7 @@ namespace A109
 
             do
             {
-                valid = true; // Reset valid flag for each iteration
+                valid = true; 
 
                 for (int i = 0; i < stats.Length; i++)
                 {
