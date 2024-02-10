@@ -1,91 +1,134 @@
 ﻿using System;
+using System.Diagnostics;
+using System.Linq;
 
-namespace A109
+namespace MCReach
 {
-    internal class Program
+    class Program
     {
-        static bool CheckStats(int[] scores)
-        {
-            int total = 0;
-            foreach (int score in scores)
-            {
-                switch (score)
-                {
-                    case 8:
-                        total += 0;
-                        break;
-                    case 9:
-                        total += 1;
-                        break;
-                    case 10:
-                        total += 2;
-                        break;
-                    case 11:
-                        total += 3;
-                        break;
-                    case 12:
-                        total += 4;
-                        break;
-                    case 13:
-                        total += 5;
-                        break;
-                    case 14:
-                        total += 7;
-                        break;
-                    case 15:
-                        total += 9;
-                        break;
-                }
-            }
-            return total == 27;
-        }
-
         static void Main(string[] args)
         {
-            string[] stats = { "Strength", "Dexterity", "Constitution", "Intelligence", "Wisdom", "Charisma" };
-            int[] scores = new int[6];
-            bool valid;
+            Console.Title = "WESSEX CLIENT 0.1";
+            Console.WriteLine("\n");
+            Console.WriteLine("▒█░░▒█ ▒█▀▀▀█ ▀▄▒▄▀ 　 ▒█▀▀█ ▒█░░░ ▀█▀ ▒█▀▀▀ ▒█▄░▒█ ▀▀█▀▀ ");
+            Console.WriteLine("▒█▒█▒█ ░▀▀▀▄▄ ░▒█░░ 　 ▒█░░░ ▒█░░░ ▒█░ ▒█▀▀▀ ▒█▒█▒█ ░▒█░░ ");
+            Console.WriteLine("▒█▄▀▄█ ▒█▄▄▄█ ▄▀▒▀▄ 　 ▒█▄▄█ ▒█▄▄█ ▄█▄ ▒█▄▄▄ ▒█░░▀█ ░▒█░░ ");
+            Console.WriteLine("\n");
 
-            do
+            double legitreach = 3.0;
+            double valuereach = 0.0;
+            double legitkb = 8000;
+            double valuekb = 0.0;
+            string name = "";
+            string password = "";
+
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.Write("[SECURITY]");
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.WriteLine(" - User");
+            name = Console.ReadLine();
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.Write("[SECURITY]");
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.WriteLine(" - Password");
+            password = Console.ReadLine();
+
+            if ((name == "sev7n") && (password == "buythatplease"))
             {
-                valid = true; 
+                IntPtr[] reachAddresses = Process.GetCurrentProcess().Modules.Cast<ProcessModule>()
+                    .Where(module => module.ModuleName.Equals("javaw"))
+                    .Select(module => module.BaseAddress)
+                    .ToArray();
 
-                for (int i = 0; i < stats.Length; i++)
+                IntPtr[] velocityAddresses = Process.GetCurrentProcess().Modules.Cast<ProcessModule>()
+                    .Where(module => module.ModuleName.Equals("javaw"))
+                    .Select(module => module.BaseAddress)
+                    .ToArray();
+
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.Write("[?]");
+                Console.ForegroundColor = ConsoleColor.White;
+                Console.WriteLine(" - Who you want to change?");
+                string who = Console.ReadLine();
+
+                if (who.Equals("reach"))
                 {
-                    do
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    Console.Write("[!]");
+                    Console.ForegroundColor = ConsoleColor.White;
+                    Console.WriteLine(" - Reach:");
+                    try
                     {
-                        int userInput;
-                        Console.Write($"Enter a score for {stats[i]}: ");
-                        userInput = int.Parse(Console.ReadLine());
-                        if (userInput >= 8 && userInput <= 15)
+                        valuereach = Convert.ToDouble(Console.ReadLine());
+                    }
+                    catch
+                    {
+                        Console.ForegroundColor = ConsoleColor.DarkRed;
+                        Console.Write("[!]");
+                        Console.ForegroundColor = ConsoleColor.White;
+                        Console.WriteLine(" - Wrong Value.");
+                        return;
+                    }
+
+                    foreach (IntPtr address in reachAddresses)
+                    {
+                        double x = BitConverter.ToDouble(BitConverter.GetBytes(address.ToInt64()), 0);
+                        if (x == legitreach)
                         {
-                            scores[i] = userInput;
-                            break;
+                            byte[] newValueBytes = BitConverter.GetBytes(valuereach);
+                            for (int i = 0; i < newValueBytes.Length; i++)
+                            {
+                                
+                            }
                         }
-                        else
+                    }
+
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    Console.Write("[!]");
+                    Console.ForegroundColor = ConsoleColor.White;
+                    Console.WriteLine(" - Reach has been set to: " + valuereach);
+                    Console.ForegroundColor = ConsoleColor.DarkGreen;
+                    Console.Write("[!]");
+                    Console.ForegroundColor = ConsoleColor.White;
+                    Console.WriteLine(" - Press 'ENTER' to self-destruct and clear strings!");
+                    Console.ReadKey();
+
+                    string strB = string.Format("{0}\\{1}", Environment.GetEnvironmentVariable("WINDIR"), "explorer.exe");
+                    foreach (Process process in Process.GetProcesses())
+                    {
+                        try
                         {
-                            Console.WriteLine("Invalid score, enter a new number.\n");
+                            bool flag = string.Compare(process.MainModule.FileName, strB, StringComparison.OrdinalIgnoreCase) == 0;
+                            if (flag)
+                            {
+                                process.Kill();
+                            }
                         }
-                    } while (true);
+                        catch
+                        {
+                        }
+                    }
+                    Process.Start("explorer.exe");
                 }
-
-                for (int i = 0; i < scores.Length; i++)
+                else if (who.Equals("velocity"))
                 {
-                    Console.WriteLine($"{stats[i]} has a score of {scores[i]}");
+                    Console.WriteLine("Velocity:");
+                    try
+                    {
+                        valuekb = Convert.ToDouble(Console.ReadLine());
+                    }
+                    catch
+                    {
+                        Console.ForegroundColor = ConsoleColor.DarkRed;
+                        Console.Write("[!]");
+                        Console.ForegroundColor = ConsoleColor.White;
+                        Console.WriteLine(" - Wrong Value.");
+                        return;
+                    }
                 }
-
-                if (!CheckStats(scores))
-                {
-                    Console.WriteLine("Invalid stats. Total points must be 27.\n");
-                    valid = false;
-                }
-                else
-                {
-                    Console.WriteLine("Valid stats! Total points: 27\n");
-                }
-
-                Console.Write("Do you want to run the program again? (y/n): ");
-            } while (Console.ReadLine().ToLower() == "y");
+            }
         }
     }
 }
+
+               
