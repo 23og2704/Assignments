@@ -14,7 +14,6 @@ namespace A100
     {
         static void Main(string[] args)
         {
-            /*
             int num1;
             int num2;
             int num3;
@@ -27,11 +26,7 @@ namespace A100
             num3 = num1 + num2;
             Console.WriteLine(num3 * num3);
             Console.ReadKey();
-            
 
- 
-
-            
             int slaba;
             int slabd;
             float slabp;
@@ -49,22 +44,6 @@ namespace A100
             fCost = price.ToString("C2", CultureInfo.GetCultureInfo("en-GB"));
             Console.WriteLine($"Total price is: {fCost}");
             Console.ReadKey();
-  
-            Console.WriteLine("Enter number of slabs across");
-            int across = int.Parse(Console.ReadLine());
-            Console.WriteLine("Enter number of slabs deep");
-            int deep = int.Parse(Console.ReadLine());
-            Console.WriteLine("Enter price of slabs");
-            double price = double.Parse(Console.ReadLine());
-            double slabamount = across * deep;
-            double totalprice = price * slabamount;
-            string fCost = totalprice.ToString("C2", CultureInfo.GetCultureInfo("en-GB"));
-            Console.WriteLine($"Your final price is: {fCost}");
-            Console.ReadKey();
-
-             */
-
-
         }
     }
 }

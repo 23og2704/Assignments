@@ -1,0 +1,25 @@
+﻿using System;
+namespace A122
+{
+    internal class Dice
+    {
+        private int sideCount;
+        Random rnd = new Random();
+        public Dice()
+        {
+            sideCount = 6;
+        }
+        public Dice(int sideCount)
+        {
+            this.sideCount = sideCount;
+        }
+        public int GetSideCount()
+        {
+            return sideCount;
+        }
+        public int Roll()
+        {
+            return rnd.Next(1, sideCount + 1);
+        }
+    }
+}
